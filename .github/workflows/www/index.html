@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b5d7a">
+<title>خريطة المسح الميداني</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg">
+<link rel="stylesheet" href="leaflet/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="map"></div>
+<div id="cross"></div>
+<div id="topbar"><span id="coords">—</span><span id="gpsinfo"></span></div>
+
+<div id="toolbar">
+  <button id="btnLoc"><b>📡</b><small>موقعي</small></button>
+  <button id="btnAddGps"><b>📍</b><small>نقطة هنا</small></button>
+  <button id="btnAdd" class="main"><b>＋</b><small>عند المركز</small></button>
+  <button id="btnList"><b>📋</b><small>النقاط (<span id="count">0</span>)</small></button>
+  <button id="btnMore"><b>⋯</b><small>المزيد</small></button>
+</div>
+
+<div id="sheetList" class="sheet" hidden>
+  <div class="sheet-h"><input id="search" placeholder="بحث بالاسم…"><button class="x" data-close="sheetList">✕</button></div>
+  <div id="items"></div>
+</div>
+
+<div id="sheetMore" class="sheet" hidden>
+  <div class="sheet-h"><b>أدوات</b><button class="x" data-close="sheetMore">✕</button></div>
+  <div class="grid">
+    <button id="exGeo">تصدير GeoJSON</button>
+    <button id="exCsv">تصدير CSV (Excel)</button>
+    <button id="exKml">تصدير KML (Google Earth)</button>
+    <button id="imp">استيراد GeoJSON</button>
+    <button id="offArea">حفظ المنطقة الحالية أوفلاين</button>
+    <button id="offClear">مسح الخرائط المحفوظة</button>
+    <button id="clearAll" class="danger">حذف كل النقاط</button>
+  </div>
+  <p class="note">الخرائط: © OpenStreetMap contributors — Esri, Maxar, Earthstar Geographics. حفظ المنطقة محدود بـ 500 مربع خريطة للمرة الواحدة؛ راجع شروط المزوّد للاستخدام المكثف.</p>
+  <input type="file" id="file" accept=".geojson,.json,application/json" hidden>
+</div>
+
+<div id="modal" hidden>
+  <div class="card">
+    <h3 id="mTitle">نقطة جديدة</h3>
+    <label>الاسم / الرمز<input id="fName" placeholder="مثال: بئر 12 - الشابية"></label>
+    <div class="row">
+      <label>النوع<select id="fType"></select></label>
+      <label>الحالة<select id="fStatus"></select></label>
+    </div>
+    <div class="row">
+      <label>خط العرض<input id="fLat" inputmode="decimal"></label>
+      <label>خط الطول<input id="fLng" inputmode="decimal"></label>
+    </div>
+    <label>ملاحظات (عمق، تصريف، ملوحة…)<textarea id="fNotes" rows="3"></textarea></label>
+    <div class="row btns">
+      <button id="fSave" class="main">حفظ</button>
+      <button id="fCancel">إلغاء</button>
+      <button id="fDel" class="danger" hidden>حذف</button>
+    </div>
+  </div>
+</div>
+<div id="toast" hidden></div>
+<script src="leaflet/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
